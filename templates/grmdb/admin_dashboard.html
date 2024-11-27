@@ -1,0 +1,270 @@
+{% extends 'grmdb/base.html' %}
+
+{% block css %}
+<style>
+    
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+.scroll-container {
+    max-height: 550px; /* Adjust height as needed */
+    overflow-y: auto; /* Enables vertical scrolling */
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    white-space: nowrap; /* Prevents text wrapping */
+}
+
+thead th {
+    background-color: #3c1089;
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+    position: sticky; /* Make the header sticky */
+    top: 0; /* Stick to the top of the container */
+    z-index: 1; /* Ensures the header stays above table content */
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+}
+
+.actions a {
+    margin: 0 5px;
+    padding: 6px 12px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.actions a.edit {
+    background-color: #007bff;
+}
+
+.actions a.delete {
+    background-color: #dc3545;
+}
+
+.actions a:hover {
+    filter: brightness(90%);
+}
+.show-more {
+    color: #007bff;
+    cursor: pointer;
+}
+</style>
+{% endblock css %}
+
+{% block body %}
+<div class="container" style="max-width: 1700px">
+    {% if messages %}
+    <div class="container">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+   
+    <h1>Geodetic Triangulated Station</h1>
+    <!-- <a href="" class="btn btn-primary">Download Data</a> -->
+    <div class="scroll-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Sr NO.</th>
+                    <th>Key Id.</th>
+                    <th>GT STATION NAME</th>
+                    <th>PAMPHLET NO.</th>
+                    <th>STATE</th>
+                    <th>DISTRICT</th>
+                    <th>TAHSIL</th>
+                    <th>PIN CODE</th>
+                    <th>APPROX LATITUDE</th>
+                    <th>APPROX LONGITUDE</th>
+                    <th>TRIANGULATED HEIGHT (M)</th>
+                    <th>ELLIPSOID HEIGHT (M)</th>
+                    <th>ORTHOMETRIC Height (m)</th>
+                    <th>GRAVITY VALUE (MICROGAL)</th>
+                    <th>GT STATION INSCRIPTION</th>
+                    <th>OLD DESCRIPTION</th>
+                    <th>REVISED DESCRIPTION (IF NECESSARY)</th>
+                    <th>CONDITION OF GT STATION</th>
+                    <th>IMAGE EAST UPLOADED BY THE FIELD TEAM</th>
+                    <th>IMAGE WEST UPLOADED BY THE FIELD TEAM</th>
+                    <th>IMAGE NORTH UPLOADED BY THE FIELD TEAM</th>
+                    <th>IMAGE SOUTH UPLOADED BY THE FIELD TEAM</th>
+                    <th>CloseUp Image Uploaded By The Field Team</th>
+                    <th>INSPECTING PERSON NAME & DESIGNATION</th>
+                    <th>INSPECTING PERSON CONTACT NO.</th>
+                    <th>LAST DATE OF VISIT</th>
+                    <th>INSPECTION REMARK</th>
+                    <th>VALIDATION</th>
+                    <th>GD USERNAME</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                
+                {% for i in data %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.keyid }}</td>
+                    <td>{{i.gtstation_name}}</td>
+                    <td>{{i.pamphlet_no}}</td>
+                    <td>{{i.state}}</td>
+                    <td>{{i.district}}</td>
+                    <td>{{i.tahsil}}</td>
+                    <td>{{i.pincode}}</td>
+                    <td>{{i.latitude}}</td>
+                    <td>{{i.longitude}}</td>
+                    <td>{{i.triangulatedheight}}</td>
+                    <td>{{i.ellipsoidheight}}</td>
+                    <td>{{i.orthometrichight}}</td>
+                    <td>{{i.gravityvalue}}</td>
+                    <td>
+                        {% if i.gt_station_inscription|length > 50 %}
+                            <span class="short-text">{{ i.gt_station_inscription|slice:":30" }}...</span>
+                            <span class="full-text" style="display:none;">{{ i.gt_station_inscription }}</span>
+                            <span class="show-more" onclick="toggleText(this)">Show more</span>
+                        {% else %}
+                            {{ i.gt_station_inscription }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if i.old_description|length > 50 %}
+                            <span class="short-text">{{ i.old_description|slice:":30" }}...</span>
+                            <span class="full-text" style="display:none;">{{ i.old_description }}</span>
+                            <span class="show-more" onclick="toggleText(this)">Show more</span>
+                        {% else %}
+                            {{ i.old_description }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if i.revised_description|length > 50 %}
+                            <span class="short-text">{{ i.revised_description|slice:":30" }}...</span>
+                            <span class="full-text" style="display:none;">{{ i.revised_description }}</span>
+                            <span class="show-more" onclick="toggleText(this)">Show more</span>
+                        {% else %}
+                            {{ i.revised_description }}
+                        {% endif %}
+                    </td>
+                    <td>{{i.conduction_of_gtstation}}</td>
+                    <td>
+                        {% if i.image_east %}
+                            <a href="{{ i.image_east.url }}" target="_blank">
+                                <img src="{{ i.image_east.url }}" alt="Image" style="max-width: 100px; max-height: 100px;">
+                            </a>
+                        {% else %}
+                            No Image Available
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if i.image_west %}
+                            <a href="{{ i.image_west.url }}" target="_blank">
+                                <img src="{{ i.image_west.url }}" alt="Image" style="max-width: 100px; max-height: 100px;">
+                            </a>
+                        {% else %}
+                            No Image Available
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if i.image_north %}
+                            <a href="{{ i.image_north.url }}" target="_blank">
+                                <img src="{{ i.image_north.url }}" alt="Image" style="max-width: 100px; max-height: 100px;">
+                            </a>
+                        {% else %}
+                            No Image Available
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if i.image_south %}
+                            <a href="{{ i.image_south.url }}" target="_blank">
+                                <img src="{{ i.image_south.url }}" alt="Image" style="max-width: 100px; max-height: 100px;">
+                            </a>
+                        {% else %}
+                            No Image Available
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if i.closeup_image %}
+                            <a href="{{ i.closeup_image.url }}" target="_blank">
+                                <img src="{{ i.closeup_image.url }}" alt="Image" style="max-width: 100px; max-height: 100px;">
+                            </a>
+                        {% else %}
+                            No Image Available
+                        {% endif %}
+                    </td>
+                    <td>{{i.authorised_person_name_and_designation}}</td>
+                    <td>{{i.authorised_person_contactno}}</td>
+                    <td>{{i.last_date_of_vist}}</td>
+                    <td>
+                        {% if i.inspection_remark|length > 50 %}
+                            <span class="short-text">{{ i.inspection_remark|slice:":30" }}...</span>
+                            <span class="full-text" style="display:none;">{{ i.inspection_remark }}</span>
+                            <span class="show-more" onclick="toggleText(this)">Show more</span>
+                        {% else %}
+                            {{ i.inspection_remark }}
+                        {% endif %}
+                    </td>
+                    <td>{{i.status}}</td>
+                    <td>{{i.gdc_username}}</td>
+                   
+                </tr>
+           {% endfor %}
+               
+            </tbody>
+        </table>
+    </div>
+   
+</div>
+<script>
+    function toggleText(element) {
+        var shortText = element.previousElementSibling.previousElementSibling;
+        var fullText = element.previousElementSibling;
+        
+        if (fullText.style.display === "none") {
+            shortText.style.display = "none";
+            fullText.style.display = "inline";
+            element.textContent = "Show less";
+        } else {
+            shortText.style.display = "inline";
+            fullText.style.display = "none";
+            element.textContent = "Show more";
+        }
+    }
+    </script>
+{% endblock body %}

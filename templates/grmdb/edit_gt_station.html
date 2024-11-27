@@ -1,0 +1,157 @@
+{% extends 'grmdb/base.html' %}
+
+{% block css %}
+<style>
+  
+    button[type="submit"] {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+</style>
+{% endblock css %}
+
+
+
+{% block body %}
+<div class="container">
+    
+    <h1>{{user.username}}</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label for="gtstation_name">Key Id</label>
+            <input type="text" id="keyid" name="keyid" value="{{ gtalldata.keyid }}" disabled>
+        </div>
+        <div>
+            <label for="gtstation_name">GT STATION NAME</label>
+            <input type="text" id="gtstation_name" name="gtstation_name" value="{{ gtalldata.gtstation_name }}" disabled>
+        </div>
+        <div>
+            <label for="pamphlet_no">PAMPHLET NO.:</label>
+            <input type="text" id="pamphlet_no" name="pamphlet_no" value="{{ gtalldata.pamphlet_no }}">
+        </div>
+        <div>
+            <label for="state">STATE:</label>
+            <input type="text" id="state" name="state" value="{{ gtalldata.state}}" disabled>
+        </div>
+        <div>
+            <label for="district">DISTRICT:</label>
+            <input type="text" id="district" name="district" value="{{ gtalldata.district }}">
+            
+        </div>
+        <div>
+            <label for="tahsil">TAHSIL:</label>
+            <input type="text" id="tahsil" name="tahsil" value="{{ gtalldata.tahsil }}">
+        </div>
+        <div>
+            <label for="pincode">PIN CODE:</label>
+            <input type="text" id="pincode" name="pincode" value="{{ gtalldata.pincode }}" >
+        </div>
+        <div>
+            <label for="latitude">LATITUDE: (DD)</label>
+            <input type="text" id="latitude" name="latitude" value="{{ gtalldata.latitude }}" disabled>
+        </div>
+        <div>
+            <label for="longitude">LONGITUDE: (DD)</label>
+            <input type="text" id="longitude" name="longitude" value="{{ gtalldata.longitude }}" disabled>
+        </div>
+        <div>
+            <label for="triangulatedheight">TRIANGULATED HEIGHT (M) :</label>
+            <input type="text" id="triangulatedheight" name="triangulatedheight" value="{{ gtalldata.triangulatedheight }}" disabled>
+        </div>
+        <div>
+
+            <label for="ellipsoidheight">ELLIPSOID HEIGHT (M):</label>
+            <input type="text" id="ellipsoidheight" name="ellipsoidheight" value="{{ gtalldata.ellipsoidheight }}" disabled>
+        </div>
+        
+        <div>
+            <label for="orthometrichight">ORTHOMETRIC HEIGHT (M):</label>
+            <input type="text" id="orthometrichight" name="orthometrichight" value="{{ gtalldata.orthometrichight }}" disabled>
+        </div>
+        <div>
+            <label for="gravityvalue">GRAVITY VALUE (MICROGAL):</label>
+            <input type="text" id="gravityvalue" name="gravityvalue" value="{{ gtalldata.gravityvalue }}" disabled>
+        </div>
+
+        <div>
+
+            <label for="gt_station_inscription">GT STATION INSCRIPTION:</label>
+            <input type="text" id="gt_station_inscription" name="gt_station_inscription" value="{{ gtalldata.gt_station_inscription }}">
+        </div>
+        <div>
+            <label for="old_description">GT OLD DESCRIPTION:</label>
+            <input type="text" id="old_description" name="old_description" value="{{ gtalldata.old_description }}">
+        </div>
+        <div>
+            <label for="revised_description">GT REVISED DESCRIPTION (IF NECESSARY):</label>
+            <input type="text" id="revised_description" name="revised_description" value="{{ gtalldata.revised_description }}">
+        </div>
+        <div>
+            <label for="conduction_of_gtstation" class="form-label">CONDITION OF GT STATION:</label>
+            <select id="conduction_of_gtstation" name="conduction_of_gtstation" class="form-select">
+                <option value="">Select Option</option>
+                <option value="Intact">Intact</option>
+                <option value="Partially Destroyed">Partially Destroyed</option>
+                <option value="Destroyed">Destroyed</option>
+            </select>
+            
+        </div>
+        <div>
+            <label for="image_east">IMAGE EAST UPLOADED BY THE FIELD TEAM:</label>
+            <input type="file" id="image_east" name="image_east" value="{{ gtalldata.image_east }}">
+        </div>
+        <div>
+            <label for="image_west">IMAGE WEST UPLOADED BY THE FIELD TEAM:</label>
+            <input type="file" id="image_west" name="image_west" value="{{ gtalldata.image_west }}">
+        </div>
+        <div>
+            <label for="image_north">IMAGE NORTH UPLOADED BY THE FIELD TEAM:</label>
+            <input type="file" id="image_north" name="image_north" value="{{ gtalldata.image_north }}">
+        </div>
+        <div>
+            <label for="image_south">IMAGE SOUTH UPLOADED BY THE FIELD TEAM:</label>
+            <input type="file" id="image_south" name="image_south" value="{{ gtalldata.image_south }}">
+        </div>
+        <div>
+            <label for="closeup_image"><b>CloseUp Image Uploaded By The Field Team:</b></label>
+            <input type="file" id="image" name="closeup_image" value="{{ gtalldata.closeup_image }}">
+        </div>
+        <div>
+            <label for="authorised_person_name_and_designation">INSPECTING PERSON NAME & DESIGNATION:</label>
+            <input type="text" id="authorised_person_name_and_designation" name="authorised_person_name_and_designation" value="{{ gtalldata.authorised_person_name_and_designation }}">
+        </div>
+        <div>
+            <label for="authorised_person_contactno">INSPECTING PERSON & CONTACT NO.:</label>
+            <input type="text" id="authorised_person_contactno" name="authorised_person_contactno" value="{{ gtalldata.authorised_person_contactno }}">
+        </div>
+        <div>
+            <label for="last_date_of_vist">LAST DATE OF VISIT:</label>
+            <input type="date" id="last_date_of_vist" name="last_date_of_vist" value="{{ gtalldata.last_date_of_vist }}">
+        </div>
+        <div>
+            <label for="inspection_remark">INSPECTION REMARK:</label>
+            <input type="text" id="inspection_remark" name="inspection_remark" value="{{ gtalldata.inspection_remark }}">
+        </div>
+        <div>
+            <label for="gdc_username">GD USERNAME:</label>
+            <input type="text" id="gdc_username" name="gdc_username" value="{{ gtalldata.gdc_username }}" disabled>
+        </div>
+        <div>
+            <label for="updatetime">LAST UPDATE TIME:</label>
+            <input type="text" id="gdc_username" name="updatetime" value="{{ gtalldata.updatetime }}" disabled>
+        </div>
+        
+        <button type="submit">Save Changes</button>
+    </form>
+</div>
+{% endblock body %}

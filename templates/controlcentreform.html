@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container">
+    <h2>Control Centre Form</h2>
+    
+    <form action="" method="POST">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="corsid">Corsid</label>
+                <input type="text" class="form-control" id="corsid" name="corsid" value="{{ controlcentre_data.corsid }}">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="site_name">Site Name</label>
+                <input type="text" class="form-control" id="site_name" name="site_name" value="{{ controlcentre_data.site_name }}" >
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="site_code">Site Code</label>
+                <input type="text" class="form-control" id="site_code" name="site_code" value="{{ controlcentre_data.site_code }}" >
+            </div>
+            <div class="form-group col-md-6">
+                <label for="coordinates_of_sites_dms_lat">Coordinates of Sites DMS Lat</label>
+                <input type="text" class="form-control" id="coordinates_of_sites_dms_lat" name="coordinates_of_sites_dms_lat">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="coordinates_of_sites_dms_long">Coordinates of Sites DMS Long</label>
+                <input type="text" class="form-control" id="coordinates_of_sites_dms_long" name="coordinates_of_sites_dms_long">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="coordinates_of_sites_dms_elp_height">Coordinates of Sites DMS Elp Height</label>
+                <input type="text" class="form-control" id="coordinates_of_sites_dms_elp_height" name="coordinates_of_sites_dms_elp_height">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="digi_wr21_ip_dns_gateway_of_alloy_field">Digi WR21 IP DNS Gateway of Alloy Field</label>
+                <input type="text" class="form-control" id="digi_wr21_ip_dns_gateway_of_alloy_field" name="digi_wr21_ip_dns_gateway_of_alloy_field">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="digi_username_password">Digi Username Password</label>
+                <input type="text" class="form-control" id="digi_username_password" name="digi_username_password">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="alloy_cc_network_ip">Alloy CC Network IP</label>
+                <input type="text" class="form-control" id="alloy_cc_network_ip" name="alloy_cc_network_ip">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="alloy_netmask">Alloy Netmask</label>
+                <input type="text" class="form-control" id="alloy_netmask" name="alloy_netmask">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="alloy_local_wifi_ip">Alloy Local WiFi IP</label>
+                <input type="text" class="form-control" id="alloy_local_wifi_ip" name="alloy_local_wifi_ip">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="alloy_username_and_password">Alloy Username and Password</label>
+                <input type="text" class="form-control" id="alloy_username_and_password" name="alloy_username_and_password">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="vendor_username">Select VendorUsername</label>
+                <select id="inputState" class="form-control" name="vendor_username">
+                    <option selected>Choose...</option>
+                    {% for i in username_vendor %}
+                    <option value="{{i.id }}">{{i.username}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <select id="inputState" class="form-control" name="gdc_username">
+                    <option selected>Choose...</option>
+                    {% for i in username_gdc %}
+                    <option value="{{i.id }}">{{i.username}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+{% endblock body %}

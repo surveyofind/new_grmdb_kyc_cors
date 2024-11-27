@@ -1,0 +1,332 @@
+{% extends 'base.html' %}
+
+{% block css %}
+<style>
+  
+
+
+</style>
+{% endblock css %}
+
+
+
+{% block body %}
+
+<div class="container">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row mb-3">
+            <div class="col">
+                <label for="corsid" class="form-label">CORS ID:</label>
+                <input type="text" id="corsid" name="corsid" value="{{ vendor.corsid }}" class="form-control" disabled>
+            </div>
+            <div class="col">
+                <label for="state_name" class="form-label">State Name:</label>
+                <input type="text" id="state_name" name="state_name" value="{{ vendor.state_name }}" class="form-control" disabled>
+            </div>
+            <div class="col">
+                <label for="site_name" class="form-label">Site Name:</label>
+                <input type="text" id="site_name" name="site_name" value="{{ vendor.site_name }}" class="form-control" disabled>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="data_of_installation" class="form-label">Date of Installation:</label>
+                <input type="date" id="data_of_installation" name="date_of_installation" value="{{ vendor.date_of_installation }}" class="form-control">
+            </div>
+            <div class="col">
+                <label for="date_of_monumentation" class="form-label">Date of Monumentation:</label>
+                <input type="date" id="date_of_monumentation" name="date_of_monumentation" value="{{ vendor.date_of_monumentation }}" class="form-control">
+            </div>
+            <div class="col">
+                <label for="status_of_station" class="form-label">Station Status:</label>
+                <select id="status_of_station" name="status_of_station" class="form-select">
+                    <option value="Working">Working</option>
+                    <option value="Not Working">Not Working</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="dimension_of_pillar" class="form-label">Dimension of Pillar:(H*W*B) in cm</label>
+                <input type="text" id="dimension_of_pillar" name="dimension_of_pillar" value="{{ vendor.dimension_of_pillar }}" class="form-control">
+            </div>
+            <div class="col">
+                <label for="height_of_bottom_of_antenna_from_base_of_pillar_meter_field" class="form-label">Height of Bottom of Antenna from Base of Pillar (cm):</label>
+                <input type="text" id="height_of_bottom_of_antenna_from_base_of_pillar_meter_field" name="height_of_bottom_of_antenna_from_base_of_pillar" value="{{ vendor.height_of_bottom_of_antenna_from_base_of_pillar }}" class="form-control">
+            </div>
+            <div class="col">
+                <label for="height_of_bottom_of_antenna_from_top_of_base_plate_meter_field" class="form-label">Height of Bottom of Antenna from Top of Base Plate (cm):</label>
+                <input type="text" id="height_of_bottom_of_antenna_from_top_of_base_plate_meter_field" name="height_of_bottom_of_antenna_from_top_of_base_plate" value="{{ vendor.height_of_bottom_of_antenna_from_top_of_base_plate }}" class="form-control">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="hb_of_antenna_from_solar_pannel_lower_angle_bottom_meter_field" class="form-label">Height of Bottom of Antenna from Solar Panel Lower Angle Bottom (cm):</label>
+                <input type="text" id="hb_of_antenna_from_solar_pannel_lower_angle_bottom_meter_field" name="height_of_bottom_of_antenna_from_solar_panel_lower_angle_bottom" value="{{ vendor.height_of_bottom_of_antenna_from_solar_panel_lower_angle_bottom }}" class="form-control">
+            </div>
+            <div class="col">
+                <label for="dimension_of_pedestal" class="form-label">Dimension of Pedestal (H*W*B):</label>
+                <select id="dimension_of_pedestal" name="dimension_of_pedestal" class="form-select">
+                    <option value="30*120*120 cm">30*120*120 cm</option>
+                </select>
+            </div>
+            <div class="col">
+                <label for="electricity_provider" class="form-label">ELECTRICITY PROVIDER NAME & CONNECTION NO:</label>
+                <input type="text" id="electricity_provider" name="electricity_provider" value="{{ vendor.electricity_provider }}" class="form-control">
+            </div>
+        </div>
+        <div class="row mb-3">
+            
+            <div class="col">
+                <label for="twonumber_of_solar_panels" class="form-label">Two No. of solar Panels (60W):</label>
+                <select id="twonumber_of_solar_panels" name="twonumber_of_solar_panels" class="form-select">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            <div class="col">
+                <label for="serial_no_of_solar_panels1and2" class="form-label">Serial No. of Solar Panel 1 and 2:</label>
+                <input type="text" id="serial_no_of_solar_panels1and2" name="serial_no_of_solar_panels1and2" value="{{ vendor.serial_no_of_solar_panels1and2 }}" class="form-control">
+            </div>
+            <div class="col">
+                <label for="batteries_12v_2" class="form-label">2 NO. OF BATTERIES (12V) (DC):</label>
+                <select id="batteries_12v_2" name="batteries_12v_2" class="form-select">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="company_name_and_no_of_batteries" class="form-label">COMPANY NAME AND SERIAL NO. OF BATTERIES:</label>
+                <input type="text" id="company_name_and_no_of_batteries" name="company_name_and_no_of_batteries" value="{{ vendor.company_name_and_no_of_batteries }}" class="form-control">
+            </div>
+            <div class="col">
+                <label for="company_name_of_sim1" class="form-label">COMPANY NAME OF SIM1 & MOBILE NO.:</label>
+                <input type="text" id="company_name_of_sim1" name="company_name_of_sim1" value="{{ vendor.company_name_of_sim1 }}" class="form-control">
+            </div>
+            <div class="col">
+                <label for="company_name_of_sim2" class="form-label">COMPANY NAME OF SIM2 & MOBILE NO.:</label>
+                <input type="text" id="company_name_of_sim2" name="company_name_of_sim2" value="{{ vendor.company_name_of_sim2 }}" class="form-control">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="company_name_and_no_of_broadband" class="form-label">COMPANY NAME AND SERIAL NO. OF BROADBAND</label>
+                <input type="text" id="company_name_and_no_of_broadband" name="company_name_and_no_of_broadband" value="{{ vendor.company_name_and_no_of_broadband }}" class="form-control">
+            </div>
+            <div class="col">
+                <label for="broadband_plan_validity" class="form-label">Broadband Plan Validity:</label>
+                <input type="text" id="broadband_plan_validity" name="broadband_plan_validity" value="{{ vendor.broadband_plan_validity }}" class="form-control">
+            </div>
+            <div class="col">
+                <label for="antenna_type_and_serial_no" class="form-label">Antenna Type and Serial No.:</label>
+                <input type="text" id="antenna_type_and_serial_no" name="antenna_type_and_serial_no" value="{{ vendor.antenna_type_and_serial_no }}" class="form-control">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="date_of_installation_of_antenna" class="form-label">Date of Installation of Antenna.:</label>
+                <input type="date" id="date_of_installation_of_antenna" name="date_of_installation_of_antenna" value="{{ vendor.date_of_installation_of_antenna }}" class="form-control">
+            </div>
+            <div class="col">
+                <label for="offset_parameter" class="form-label">Offset Parameter of Antenna:</label>
+                <input type="file" id="offset_parameter" name="offset_parameter" class="form-control">
+            </div>
+            <div class="col">
+                <label for="receiver_model_name_and_serial_no" class="form-label">Receiver Model name and Serial No.:</label>
+                <input type="text" id="receiver_model_name_and_serial_no" name="receiver_model_name_and_serial_no" value="{{ vendor.receiver_model_name_and_serial_no }}" class="form-control">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="date_of_installation_of_receiver_and_firmware" class="form-label">Date of Installation of Receiver and Firmware:</label>
+                <input type="date" id="date_of_installation_of_receiver_and_firmware" name="date_of_installation_of_receiver_and_firmware" value="{{ vendor.date_of_installation_of_receiver_and_firmware }}" class="form-control">
+            </div>
+            <div class="col">
+                <label for="date_of_installation_of_radome_and_serial_no" class="form-label">Date of Installation of Radome and Serial No:</label>
+                <input type="date" id="date_of_installation_of_radome_and_serial_no" name="date_of_installation_of_radome_and_serial_no" value="{{ vendor.date_of_installation_of_radome_and_serial_no }}" class="form-control">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="install_meteorological_sensor" class="form-label">Serial No. of Meteorological Sensor:</label>
+                <select id="install_meteorological_sensor" name="serial_no_of_meteorological_sensor" class="form-select">
+                    <option value="{{vendor.serial_no_of_meteorological_sensor}}">Select Option</option>
+                    <option value="Not Install">Not Install</option>
+                    <option value="yes">Install</option>
+                </select>
+            </div>
+            <div id="additional_field" style="display: none;">
+                <div class="col">
+                    <label for="additional_info" class="form-label">ADD Serial No.:</label>
+                    <input type="text" id="additional_info" name="additional_info" class="form-control">
+                </div>
+            </div>
+            <div class="col">
+                <label for="date_of_installation_of_meteorological_sensor" class="form-label">Date of Installation of Meterological Sensor:</label>
+                <input type="date" id="date_of_installation_of_meteorological_sensor" name="date_of_installation_of_meteorological_sensor" value="{{ vendor.date_of_installation_of_meteorological_sensor }}" class="form-control">
+            </div>
+            <div class="col">
+                <label for="meteorological_sensor_type_and_firmware" class="form-label">Meteorological Sensor Type and Firmware:</label>
+                <input type="text" id="meteorological_sensor_type_and_firmware" name="meteorological_sensor_type_and_firmware" value="{{ vendor.meteorological_sensor_type_and_firmware }}" class="form-control">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="logging_interval_of_gnss_data" class="form-label">GNSS Data Logging Interval is 1 second:</label>
+                <select id="logging_interval_of_gnss_data" name="logging_interval_of_gnss_data" class="form-select">
+                    <option value="{{vendor.logging_interval_of_gnss_data}}">Select Option</option>
+                    <option value="YES">Yes</option>
+                    <option value="logging">NO</option>
+                </select>
+            </div>
+            <div id="additional_data" style="display: none;">
+                <div class="col">
+                    <label for="additional_loginig" class="form-label">Add Logging Interval :</label>
+                    <input type="text" id="additional_loginig" name="additional_loginig" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label class="form-label">GNSS Data Frequencies:</label><br>
+                <label for="gps_frequencies">GPS:</label><br>
+                <input type="checkbox" id="gps_l1" name="gnss_data_frequencies" value="GPS L1C" {% if 'GPS L1C' in vendor.gnss_data_frequencies %} checked {% endif %}>
+                <label for="gps_l1">L1C</label>
+                <input type="checkbox" id="gps_l2" name="gnss_data_frequencies" value="GPS L1C/A" {% if 'GPS L1C/A' in vendor.gnss_data_frequencies %} checked {% endif %}>
+                <label for="gps_l2">L1C/A</label>
+                <input type="checkbox" id="gps_l3" name="gnss_data_frequencies" value="GPS L2E(L2P)" {% if 'GPS L2E(L2P)' in vendor.gnss_data_frequencies %} checked {% endif %}>
+                <label for="gps_l3">L2E(L2P)</label>
+                <input type="checkbox" id="gps_l4" name="gnss_data_frequencies" value="GPS L2C" {% if 'GPS L2C' in vendor.gnss_data_frequencies %} checked {% endif %}>
+                <label for="gps_l4">L2C</label>
+                <input type="checkbox" id="gps_l5" name="gnss_data_frequencies" value="GPS L5" {% if 'GPS L5' in vendor.gnss_data_frequencies %} checked {% endif %}>
+                <label for="gps_l5">L5</label><br>
+
+                <label for="galileo_frequencies">Galileo:</label><br>
+                <input type="checkbox" id="galileo_E1" name="gnss_data_frequencies" value="Galileo E1" {% if 'Galileo E1' in vendor.gnss_data_frequencies %} checked {% endif %}>
+                <label for="galileo_E1">E1</label>
+                <input type="checkbox" id="galileo_l2" name="gnss_data_frequencies" value="Galileo E5A" {% if 'Galileo E5A' in vendor.gnss_data_frequencies %} checked {% endif %}>
+                <label for="galileo_l2">E5A</label>
+                <input type="checkbox" id="galileo_l3" name="gnss_data_frequencies" value="Galileo E5B and E5AltBOC" {% if 'Galileo E5B and E5AltBOC' in vendor.gnss_data_frequencies %} checked {% endif %}>
+                <label for="galileo_l3">E5B and E5AltBOC</label>
+                <input type="checkbox" id="galileo_l4" name="gnss_data_frequencies" value="Galileo E6" {% if 'Galileo E6' in vendor.gnss_data_frequencies %} checked {% endif %}>
+                <label for="galileo_l4">E6</label><br>
+                
+
+              
+                <label for="gps_frequencies">Glonass:</label><br>
+                <input type="checkbox" id="glonass_l1c/a" name="gnss_data_frequencies" value="Glonass L1C/A" {% if 'Glonass L1C/A' in vendor.gnss_data_frequencies %} checked {% endif %}>
+                <label for="glonass_l1c/a">L1C/A</label>
+                <input type="checkbox" id="glonass_l2c" name="gnss_data_frequencies" value="Glonass L2C/A" {% if 'Glonass L2C/A' in vendor.gnss_data_frequencies %} checked {% endif %}>
+                <label for="glonass_l2c">L2C/A</label>
+                <input type="checkbox" id="glonass_l2p" name="gnss_data_frequencies" value="Glonass L3 CDMA" {% if 'Glonass L3 CDMA' in vendor.gnss_data_frequencies %} checked {% endif %}>
+                <label for="glonass_l2p">L3 CDMA</label><br>
+               
+
+                <label for="galileo_frequencies">BeiDou:</label><br>
+                <input type="checkbox" id="beidou_b1i" name="gnss_data_frequencies" value="BeiDou B1" {% if 'BeiDou B1' in vendor.gnss_data_frequencies %} checked {% endif %}>
+                <label for="beidou_b1i">B1</label>
+                <input type="checkbox" id="beidou_b2i" name="gnss_data_frequencies" value="BeiDou B2" {% if 'BeiDou B2' in vendor.gnss_data_frequencies %} checked {% endif %}>
+                <label for="beidou_b2i">B2</label>
+                <input type="checkbox" id="beidou_b3i" name="gnss_data_frequencies" value="BeiDou B3" {% if 'BeiDou B3' in vendor.gnss_data_frequencies %} checked {% endif %}>
+                <label for="beidou_b3i">B3</label>
+                <input type="checkbox" id="beidou_b1c" name="gnss_data_frequencies" value="BeiDou B1C" {% if 'BeiDou B1C' in vendor.gnss_data_frequencies %} checked {% endif %}>
+                <label for="beidou_b1c">B1C </label>
+                <input type="checkbox" id="beidou_b2a" name="gnss_data_frequencies" value="BeiDou B2A" {% if 'BeiDou B2A' in vendor.gnss_data_frequencies %} checked {% endif %}>
+                <label for="beidou_b2a">B2A </label>
+                <input type="checkbox" id="beidou_b2b" name="gnss_data_frequencies" value="BeiDou B2B" {% if 'BeiDou B2B' in vendor.gnss_data_frequencies %} checked {% endif %}>
+                <label for="beidou_b2b">B2B </label><br>
+
+
+                <label for="galileo_frequencies">SBAS:</label><br>
+                <input type="checkbox" id="sbas_l1" name="gnss_data_frequencies" value="SBAS L1C/A" {% if 'SBAS L1C/A' in vendor.gnss_data_frequencies %} checked {% endif %}>
+                <label for="sbas_l1">L1C/A</label>
+                <input type="checkbox" id="sbas_l5" name="gnss_data_frequencies" value="SBAS L1C/A and L5" {% if 'SBAS L1C/A and L5' in vendor.gnss_data_frequencies %} checked {% endif %}>
+                <label for="sbas_l5">L1C/A and L5 </label><br>
+
+                <label for="galileo_frequencies">QZSS:</label><br>
+                <input type="checkbox" id="qzss_l1c/a" name="gnss_data_frequencies" value="QZSS L1C/A" {% if 'QZSS L1C/A' in vendor.gnss_data_frequencies %} checked {% endif %}>
+                <label for="qzss_l1c/a">L1C/A</label>
+                <input type="checkbox" id="qzss_l1c" name="gnss_data_frequencies" value="QZSS L1C" {% if 'QZSS L1C' in vendor.gnss_data_frequencies %} checked {% endif %}>
+                <label for="qzss_l1c">L1C</label>
+                <input type="checkbox" id="qzss_l1s" name="gnss_data_frequencies" value="QZSS L1S" {% if 'QZSS L1S' in vendor.gnss_data_frequencies %} checked {% endif %}>
+                <label for="qzss_l1s">L1S</label>
+                <input type="checkbox" id="qzss_l2c" name="gnss_data_frequencies" value="QZSS L2C" {% if 'QZSS L2C' in vendor.gnss_data_frequencies %} checked {% endif %}>
+                <label for="qzss_l2c">L2C </label>
+                <input type="checkbox" id="qzss_l5" name="gnss_data_frequencies" value="QZSS L5" {% if 'QZSS L5' in vendor.gnss_data_frequencies %} checked {% endif %}>
+                <label for="qzss_l5">L5 </label>
+                <input type="checkbox" id="qzss_l6" name="gnss_data_frequencies" value="QZSS LEX/L6" {% if 'QZSS LEX/L6' in vendor.gnss_data_frequencies %} checked {% endif %}>
+                <label for="qzss_l6">LEX/L6 </label><br>
+
+                <label for="galileo_frequencies">IRNSS:</label><br>
+                <input type="checkbox" id="qzss_l1c/a" name="gnss_data_frequencies" value="irnss L5" {% if 'irnss L5' in vendor.gnss_data_frequencies %} checked {% endif %}>
+                <label for="qzss_l1c/a">L5</label>
+                <input type="checkbox" id="qzss_l1c" name="gnss_data_frequencies" value="irnss S-Band" {% if 'irnss S-Band' in vendor.gnss_data_frequencies %} checked {% endif %}>
+                <label for="qzss_l1c">S-Band</label>
+
+            </div>
+            <div class="col">
+                <label for="last_date_of_vendormonitoring" class="form-label">Last Date of Site Visit:</label>
+                <input type="date" id="last_date_of_vendormonitoring" name="last_date_of_site_visit" value="{{ vendor.last_date_of_site_visit }}" class="form-control">
+            </div>
+        </div>
+        <div class="row mb-3">
+        <div class="col">
+            <label for="vendor_time" class="form-label">Last Update Date and Time:</label>
+            <input type="text" id="vendor_time" name="vendor_time" value="{{ vendor.vendor_time }}" class="form-control">
+        </div>
+        <div class="col">
+            <label for="operationmaintainanceremark" class="form-label">Operation & Maintainance Remark:</label>
+            <input type="text" id="operationmaintainanceremark" name="operationmaintainanceremark" value="{{ vendor.operationmaintainanceremark }}" class="form-control">
+        </div>
+        <div class="col">  
+            <label for="image_east" class="form-label">Image East Uploaded By The Service Provider:</label>
+            <input type="file" id="image_east" name="image_east" class="form-control">
+        </div>
+    </div>
+  
+     <div class="row mb-3">
+        <div class="col"> 
+            <label for="image_west" class="form-label">Image West Uploaded By The Service Provider:</label>
+            <input type="file" id="image_west" name="image_west" class="form-control">
+        </div>
+        <div class="col">  
+            <label for="image_north" class="form-label">Image North Uploaded By The Service Provider:</label>
+            <input type="file" id="image_north" name="image_north" class="form-control">
+        </div>
+        <div class="col"> 
+            <label for="image_south" class="form-label">Image South Uploaded By The Service Provider:</label>
+            <input type="file" id="image_south" name="image_south" class="form-control">
+        </div>
+     </div>
+
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock body %}
+
+
+{% block js %}
+<script>
+    document.getElementById('install_meteorological_sensor').addEventListener('change', function() {
+        var additionalField = document.getElementById('additional_field');
+        if (this.value === 'yes') {
+            additionalField.style.display = 'block';
+        } else {
+            additionalField.style.display = 'none';
+        }
+    });
+
+    document.getElementById('logging_interval_of_gnss_data').addEventListener('change', function() {
+        var additionalField = document.getElementById('additional_data');
+        if (this.value === 'logging') {
+            additionalField.style.display = 'block';
+        } else {
+            additionalField.style.display = 'none';
+        }
+    });
+</script>
+{% endblock js %}

@@ -1,0 +1,153 @@
+{% extends 'grmdb/base.html' %}
+
+{% block css %}
+<style>
+  
+    button[type="submit"] {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+</style>
+{% endblock css %}
+
+
+
+{% block body %}
+<div class="container">
+    
+    <h1>{{user.username}}</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label for="gcpalldata">Key Id</label>
+            <input type="text" id="keyid" name="keyid" value="{{ gcpalldata.keyid }}" disabled>
+        </div>
+        <div>
+            <label for="pid">PID</label>
+            <input type="text" id="pid" name="pid" value="{{ gcpalldata.pid }}" disabled>
+        </div>
+        <div>
+            <label for="gcp_name">GCP NAME</label>
+            <input type="text" id="gcp_name" name="gcp_name" value="{{ gcpalldata.gcp_name }}" disabled>
+        </div>
+        <div>
+            <label for="state">STATE:</label>
+            <input type="text" id="state" name="state" value="{{ gcpalldata.state}}" disabled>
+        </div>
+        <div>
+            <label for="district">DISTRICT:</label>
+            <input type="text" id="district" name="district" value="{{ gcpalldata.district }}">
+            
+        </div>
+        <div>
+            <label for="tahsil">TAHSIL:</label>
+            <input type="text" id="tahsil" name="tahsil" value="{{ gcpalldata.tahsil }}">
+        </div>
+        <div>
+            <label for="pincode">PIN CODE:</label>
+            <input type="text" id="pincode" name="pincode" value="{{ gcpalldata.pincode }}">
+        </div>
+        <div>
+            <label for="latitude">LATITUDE:</label>
+            <input type="text" id="latitude" name="latitude" value="{{ gcpalldata.latitude }}" disabled>
+        </div>
+        <div>
+            <label for="longitude">LONGITUDE:</label>
+            <input type="text" id="longitude" name="longitude" value="{{ gcpalldata.longitude }}" disabled>
+        </div>
+        <div>
+            <label for="ellipsoidheight">Ellipsoid HEIGHT (m):</label>
+            <input type="text" id="ellipsoidheight" name="ellipsoidheight" value="{{ gcpalldata.ellipsoidheight }}" disabled>
+        </div>
+        <div>
+            <label for="orthometrichight">ORTHOMETRIC HEIGHT (m):</label>
+            <input type="text" id="orthometrichight" name="orthometrichight" value="{{ gcpalldata.orthometrichight }}" >
+        </div>
+        <div>
+            <label for="gravityvalue">GRAVITY VALUE (MICROGAL):</label>
+            <input type="text" id="gravityvalue" name="gravityvalue" value="{{ gcpalldata.gravityvalue }}" disabled>
+        </div>
+        <div>
+            <label for="gcp_on_pillar" class="form-label">GCP ON:</label>
+            <select id="gcp_on_pillar" name="gcp_on_pillar" class="form-select">
+                <option value="">Select Option</option>
+                <option value="pillar">PILLAR</option>
+                <option value="rock">ROCK</option>
+                <option value="Roof">ROOF</option>
+            </select>
+        </div>
+        <div>
+            <label for="old_description">GCP OLD DESCRIPTION:</label>
+            <input type="text" id="old_description" name="old_description" value="{{ gcpalldata.old_description }}" disabled>
+        </div>
+        <div>
+            <label for="revised_description">GCP REVISED DESCRIPTION (IF NECESSARY):</label>
+            <input type="text" id="revised_description" name="revised_description" value="{{ gcpalldata.revised_description }}">
+        </div>
+        <div>
+            <label for="conduction_of_gcp" class="form-label">CONDITION OF GCP:</label>
+            <select id="conduction_of_gcp" name="conduction_of_gcp" class="form-select">
+                <option value="">Select Option</option>
+                <option value="Intact">Intact</option>
+                <option value="Partially Destroyed">Partially Destroyed</option>
+                <option value="Destroyed">Destroyed</option>
+            </select>
+        </div>
+        <div>
+            <label for="image_east">IMAGE EAST UPLOADED BY THE FIELD TEAM:</label>
+            <input type="file" id="image_east" name="image_east" value="{{ gcpalldata.image_east }}">
+        </div>
+        <div>
+            <label for="image_west">IMAGE WEST UPLOADED BY THE FIELD TEAM:</label>
+            <input type="file" id="image_west" name="image_west" value="{{ gcpalldata.image_west }}">
+        </div>
+        <div>
+            <label for="image_north">IMAGE NORTH UPLOADED BY THE FIELD TEAM:</label>
+            <input type="file" id="image_north" name="image_north" value="{{ gcpalldata.image_north }}">
+        </div>
+        <div>
+            <label for="image_south">IMAGE SOUTH UPLOADED BY THE FIELD TEAM:</label>
+            <input type="file" id="image_south" name="image_south" value="{{ gcpalldata.image_south }}">
+        </div>
+        <div>
+            <label for="closeup_image"><b>CloseUp Image Uploaded By The Field Team:</b></label>
+            <input type="file" id="image" name="closeup_image" value="{{ gcpalldata.closeup_image }}">
+        </div>
+        <div>
+            <label for="authorised_person_name_and_designation">INSPECTING PERSON NAME & DESIGNATION:</label>
+            <input type="text" id="authorised_person_name_and_designation" name="authorised_person_name_and_designation" value="{{ gcpalldata.authorised_person_name_and_designation }}">
+        </div>
+        <div>
+            <label for="authorised_person_contactno">INSPECTING PERSON CONTACT NO.:</label>
+            <input type="text" id="authorised_person_contactno" name="authorised_person_contactno" value="{{ gcpalldata.authorised_person_contactno }}">
+        </div>
+        <div>
+            <label for="last_date_of_vist">LAST DATE OF VISIT:</label>
+            <input type="date" id="last_date_of_vist" name="last_date_of_vist" value="{{ gcpalldata.last_date_of_vist }}">
+        </div>
+        <div>
+            <label for="inspection_remark">INSPECTION REMARK:</label>
+            <input type="text" id="inspection_remark" name="inspection_remark" value="{{ gcpalldata.inspection_remark }}">
+        </div>
+        <div>
+            <label for="gdc_username">GD USERNAME:</label>
+            <input type="text" id="gdc_username" name="gdc_username" value="{{ gcpalldata.gdc_username }}" disabled>
+        </div>
+        <div>
+            <label for="updatetime">LAST UPDATE TIME:</label>
+            <input type="text" id="updatetime" name="updatetime" value="{{ gcpalldata.updatetime }}" disabled>
+        </div>
+        
+        <button type="submit">Save Changes</button>
+    </form>
+</div>
+{% endblock body %}

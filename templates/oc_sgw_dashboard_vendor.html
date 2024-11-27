@@ -1,0 +1,270 @@
+{% extends 'base2.html' %} {% block css %}
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+  }
+
+  .scroll-container {
+    max-height: 590px; /* Adjust height as needed */
+    overflow-y: auto; /* Enables vertical scrolling */
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+
+  th,
+  td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    white-space: nowrap; /* Prevents text wrapping */
+  }
+
+  thead th {
+    background-color: #3c1089;
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+    position: sticky; /* Make the header sticky */
+    top: 0; /* Stick to the top of the container */
+    z-index: 1; /* Ensures the header stays above table content */
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  tr:hover {
+    background-color: #f5f5f5;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: center;
+  }
+
+  .actions a {
+    margin: 0 5px;
+    padding: 6px 12px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .actions a.edit {
+    background-color: #007bff;
+  }
+
+  .actions a.delete {
+    background-color: #dc3545;
+  }
+
+  .actions a:hover {
+    filter: brightness(90%);
+  }
+</style>
+{% endblock css %} {% block body %}
+<div class="container" style="max-width: 1600px">
+  {% if messages %}
+  <div class="container">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <h1>Vandor Data</h1>
+  <a href="{% url 'sgw_vendor_download_csv' %}" class="btn btn-primary">Download Data</a>
+  <div class="scroll-container">
+    <table>
+      <thead>
+        <tr>
+          <th>CORS ID</th>
+          <th>Site Name</th>
+          <th>State</th>
+          <th>Date of Monumentation</th>
+          <th>Date of Installation</th>
+          <th>Station Status</th>
+          <th>Antenna Type and Serial No.</th>
+          <th>Date of Installation of Antenna</th>
+          <th>Offset Parameter of Antenna</th>
+          <th>Height of Bottom of Antenna from Base of Pillar (cm)</th>
+          <th>Height of Bottom of Antenna from Top of Base Plate (cm)</th>
+          <th>
+            Height of Bottom of Antenna from Solar Panel Lower Angle Bottom (cm)
+          </th>
+          <th>Dimension of Pillar (H*W*B) in cm</th>
+          <th>Dimension of Pedestal (H*W*B) in cm</th>
+          <th>GNSS Data Logging Interval is 1 second</th>
+          <th>GNSS Data Frequencies</th>
+          <th>Electricity Provider Name & Connection No</th>
+          <th>Two No. of solar Panels (60 W)</th>
+          <th>Serial No. of Solar Panel 1 and 2</th>
+          <th>2 No. of Batteries (12V) (DC)</th>
+          <th>Company Name and Serial No. of Batteries</th>
+          <th>Company Name of SIM1 & Mobile No.</th>
+          <th>Company Name of SIM2 & Mobile No.</th>
+          <th>Company Name and Serial No. of Broadband</th>
+          <th>Broadband Plan Validity</th>
+          <th>Receiver Model name and Serial No.</th>
+          <th>Date of Installation of Receiver and Firmware</th>
+          <th>Date of Installation of Radome and Serial No</th>
+          <th>Serial No. of Meteorological Sensor if any</th>
+          <th>Date of Installation of Meteorological Sensor</th>
+          <th>Meteorological Sensor Type and Firmware</th>
+          <th>Last Date of Site Visit</th>
+          <th>Operation & Maintainance Remark</th>
+          <th>Image East Uploaded By The Service Provider</th>
+          <th>Image West Uploaded By The Service Provider</th>
+          <th>Image North Uploaded By The Service Provider</th>
+          <th>Image South Uploaded By The Service Provider</th>
+          <th>Status</th>
+          <th>Validation</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in data %}
+        <tr>
+          <td>{{ i.corsid }}</td>
+          <td>{{ i.site_name }}</td>
+          <td>{{ i.state_name }}</td>
+          <td>{{ i.date_of_monumentation }}</td>
+          <td>{{ i.date_of_installation }}</td>
+          <td>{{ i.station_status }}</td>
+          <td>{{ i.antenna_type_and_serial_no }}</td>
+          <td>{{ i.date_of_installation_of_antenna }}</td>
+          <td>
+            {% if i.offset_parameter_of_antenna %}
+            <a href="{{ i.offset_parameter_of_antenna.url }}" target="_blank"
+              >File</a
+            >
+            {% else %} No File Available {% endif %}
+          </td>
+          <td>{{ i.height_of_bottom_of_antenna_from_base_of_pillar }}</td>
+          <td>{{ i.height_of_bottom_of_antenna_from_top_of_base_plate }}</td>
+          <td>
+            {{ i.height_of_bottom_of_antenna_from_solar_panel_lower_angle_bottom}}
+          </td>
+          <td>{{ i.dimension_of_pillar }}</td>
+          <td>{{ i.dimension_of_pedestal }}</td>
+          <td>{{ i.logging_interval_of_gnss_data }}</td>
+          <td>{{i.gnss_data_frequencies}}</td>
+          <td>{{ i.electricity_provider }}</td>
+          <td>{{ i.twonumber_of_solar_panels }}</td>
+          <td>{{i.serial_no_of_solar_panels1and2}}</td>
+          <td>{{ i.batteries_12v_2 }}</td>
+          <td>{{ i.company_name_and_no_of_batteries }}</td>
+          <td>{{ i.company_name_of_sim1 }}</td>
+          <td>{{ i.company_name_of_sim2 }}</td>
+          <td>{{ i.company_name_and_no_of_broadband }}</td>
+          <td>{{ i.broadband_plan_validity }}</td>
+          <td>{{ i.receiver_model_name_and_serial_no }}</td>
+          <td>{{ i.date_of_installation_of_receiver_and_firmware }}</td>
+          <td>{{ i.date_of_installation_of_radome_and_serial_no }}</td>
+          <td>{{ i.serial_no_of_meteorological_sensor }}</td>
+          <td>{{ i.date_of_installation_of_meteorological_sensor }}</td>
+          <td>{{i.meteorological_sensor_type_and_firmware}}</td>
+          <td>{{ i.last_date_of_site_visit }}</td>
+          <td>{{i.operationmaintainanceremark}}</td>
+          <td>
+            {% if i.image_east %}
+            <a href="{{ i.image_east.url }}" target="_blank">
+              <img
+                src="{{ i.image_east.url }}"
+                alt="Image"
+                style="max-width: 100px; max-height: 100px"
+              />
+            </a>
+            {% else %} No Image Available {% endif %}
+          </td>
+          <td>
+            {% if i.image_west %}
+            <a href="{{ i.image_west.url }}" target="_blank">
+              <img
+                src="{{ i.image_west.url }}"
+                alt="Image"
+                style="max-width: 100px; max-height: 100px"
+              />
+            </a>
+            {% else %} No Image Available {% endif %}
+          </td>
+          <td>
+            {% if i.image_north %}
+            <a href="{{ i.image_north.url }}" target="_blank">
+              <img
+                src="{{ i.image_north.url }}"
+                alt="Image"
+                style="max-width: 100px; max-height: 100px"
+              />
+            </a>
+            {% else %} No Image Available {% endif %}
+          </td>
+          <td>
+            {% if i.image_south %}
+            <a href="{{ i.image_south.url }}" target="_blank">
+              <img
+                src="{{ i.image_south.url }}"
+                alt="Image"
+                style="max-width: 100px; max-height: 100px"
+              />
+            </a>
+            {% else %} No Image Available {% endif %}
+          </td>
+          <td>{{ i.status }}</td>
+          <form id="status-form">
+            {% csrf_token %}
+            <td>
+                <input type="checkbox" name="verify_{{ i.vendorid }}" data-vendorid="{{ i.vendorid }}" {% if i.status == 'Verified' %} checked {% endif %}>
+            </td>
+            <td class="actions">
+                <a href="{% url 'edit_oc_sgw_dashboard_vendor' i.corsid %}" class="edit">Edit</a>
+            </td>
+        </form>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('input[type="checkbox"]').forEach(function(checkbox) {
+      checkbox.addEventListener('change', function() {
+          var formData = new FormData();
+          formData.append('csrfmiddlewaretoken', document.querySelector('[name="csrfmiddlewaretoken"]').value);
+          formData.append('id', this.getAttribute('data-vendorid'));
+          formData.append('status', this.checked ? 'Verified' : 'Unverified');
+
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', '{% url "oc_sgw_dashboard_corsupdate_status" %}', true);
+          xhr.onload = function() {
+              if (xhr.status >= 200 && xhr.status < 400) {
+                  // Handle successful response
+                  alert('Status updated successfully');
+              } else {
+                  // Handle error
+                  alert('An error occurred');
+              }
+          };
+          xhr.send(formData);
+      });
+  });
+</script>
+{% endblock body %}

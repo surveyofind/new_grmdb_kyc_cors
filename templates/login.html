@@ -1,0 +1,244 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORS Database Portal</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #007bff;
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+
+        .logo {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .logo img {
+            max-width: 290px;
+            vertical-align: middle;
+        }
+
+        .login-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .signup-link {
+            text-align: center;
+        }
+
+        .signup-link a {
+            color: #007bff;
+        }
+
+        .signup-link a:hover {
+            text-decoration: none;
+        }
+
+        .table-container {
+            margin-top: 30px;
+        }
+
+        .table-container table {
+            width: 100%;
+            background-color: white;
+            border-collapse: collapse;
+        }
+
+        .table-container th,
+        .table-container td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table-container th {
+            background-color: #007bff;
+            color: white;
+        }
+
+    </style>
+    <style>
+        .scroll-table {
+            max-height: 400px; /* Adjust the height as needed */
+            overflow-y: auto;
+        }
+        thead th {
+            position: sticky;
+            top: 0;
+            background-color: #fff;  /* Background for the header row */
+            z-index: 2;              /* Ensure the header is above the scrolling content */
+            box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4); /* Optional shadow for better visibility */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>CORS DATABASE PORTAL</h1>
+    </div>
+    <div class="logo">
+        <img src="{% static 'img/logo.png' %}" alt="LOGO">
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="login-container">
+                <h2>Login</h2>
+                {% if error %}
+                <div style="color: red;">{{ error }}</div>
+                {% endif %}
+                <form action="" method="POST"> {% csrf_token %}
+                    <div class="form-group">
+                        <label for="user_type">Select User Type:</label>
+                        <select name="user_type" id="user_type" class="form-control" onchange="updateUserField()">
+                            <option value="control_centre">CORS Processing and Monitoring Centre</option>
+                            <option value="vendor">Vendor</option>
+                            <option value="gdc">Geo-Spatial Directorate</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <div id="username-container">
+                            <input type="text" name="username" id="username" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <div class="password-input">
+                            <input type="password" name="password" id="password" class="form-control" required>
+                            <span class="toggle-password" onclick="togglePasswordVisibility()">&#x1F441;</span><br>
+                            <a href="{% url 'forgot_password' %}">Forget Password</a>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                    <p class="signup-link"><b>Admin Login </b> <a href="{% url 'corsadmin_login' %}">Login</a></p>
+                </form>
+            </div>
+        </div>
+
+        <!-- Table Section -->
+        <div class="col-md-6">
+            <div class="table-container">
+                
+                <h3>CORS RECCE REPORT</h3>
+                <a href="{% url 'download_table_csv' %}" class="btn btn-primary active" role="button" aria-pressed="true">Download CSV</a>
+                <div class="scroll-table" style="max-height: 400px; overflow-y: auto;">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>GD NAME</th>
+                                <th>TARGET</th>
+                                <th>NO OF CORS (Recced In Last Month)</th>
+                                <th>NO OF CORS (Recced Till Date)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in results %}
+                            <tr>
+                                <td>{{ item.gdc_username }}</td>
+                                <td>{{ item.total_benchmark_count }}</td>
+                                <td>{{ item.corsid_count }}</td>
+                                <td>{{ item.alldata_count }}</td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="3" class="text-center">No recent edits available.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function togglePasswordVisibility() {
+        var passwordInput = document.getElementById("password");
+        var toggleButton = document.querySelector(".toggle-password");
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            toggleButton.innerHTML = "&#x1F440;";
+        } else {
+            passwordInput.type = "password";
+            toggleButton.innerHTML = "&#x1F441;";
+        }
+    }
+
+    function updateUserField() {
+        var userType = document.getElementById("user_type").value;
+        var usernameContainer = document.getElementById("username-container");
+
+        if (userType === "gdc") {
+            usernameContainer.innerHTML = '<select name="username" id="username" class="form-control" required>' +
+                '<option value="" disabled selected>Select User</option>' +
+                '{% for user in gd_users %}' +
+                '<option value="{{ user.username }}">{{ user.username }}</option>' +
+                '{% endfor %}' +
+                '</select>';
+        } else {
+            usernameContainer.innerHTML = '<input type="text" name="username" id="username" class="form-control" required>';
+        }
+    }
+</script>
+
+</body>
+</html>

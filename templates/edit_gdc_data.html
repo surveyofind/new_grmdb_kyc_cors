@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block css %}
+<style>
+
+</style>
+{% endblock css %}
+
+{% block body %}
+<div class="container">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col">
+                <label for="corsid"><b>CORS ID:</b></label>
+                <input type="text" id="corsid" name="corsid" value="{{ gdc_data.corsid }}" disabled>
+            </div>
+            <div class="col">
+                <label for="site_name"><b>Site Name:</b></label>
+                <input type="text" id="site_name" name="site_name" value="{{ gdc_data.site_name }}" disabled>
+            </div>
+            <div class="col">
+                <label for="state_name"><b>State Name:</b></label>
+                <input type="text" id="state_name" name="state_name" value="{{ gdc_data.state_name }}" disabled>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="dist_name"><b>District Name:</b></label>
+                <input type="text" id="dist_name" name="dist_name" value="{{ gdc_data.dist_name }}">
+            </div>
+            <div class="col">
+                <label for="tahsil_name"><b>Tahsil Name:</b></label>
+                <input type="text" id="tahsil_name" name="tahsil_name" value="{{ gdc_data.tahsil_name }}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="pin_code"><b>PIN Code:</b></label>
+                <input type="text" id="pin_code" name="pin_code" minlength="6" maxlength="6" value="{{ gdc_data.pin_code }}">
+            </div>
+            <div class="col">
+                <label for="corson" class="form-label"><b>Cors On:</b></label>
+                <select id="corson" name="corson" class="form-select">
+                    <option value="">Select Option</option>
+                    <option value="GROUND">GROUND</option>
+                    <option value="ROOF">ROOF</option>
+                </select>
+            </div>
+        </div>
+        <div class="row"> 
+            <div class="col">
+                <label for="verticality_of_antenna" class="form-label"><b>Verticality Of Antenna:</b></label>
+                <select id="verticality_of_antenna" name="verticality_of_antenna" class="form-select">
+                    <option value="">Select Option</option>
+                    <option value="Truely Vertical">Truely Vertical</option>
+                    <option value="Partially Vertical">Partially Vertical</option>
+                    <option value="Distrubed">Distrubed</option>
+                </select>
+            </div>
+            <div class="col">
+                <label for="person_of_gdc"><b>Inspecting Person name & Designation:</b></label>
+                <input type="text" id="person_of_gdc" name="person_of_gdc" value="{{ gdc_data.person_of_gdc }}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="contact_no_of_gdc"><b>Inspecting Person Contact No.:</b></label>
+                <input type="text" id="contact_no_of_gdc" name="contact_no_of_gdc" minlength="10" maxlength="10" value="{{ gdc_data.contact_no_of_gdc }}">
+            </div>
+            <div class="col">
+                <label for="last_date_of_gdc_visit"><b>Last Date of Visit:</b></label>
+                <input type="date" id="last_date_of_gdc_visit" name="last_date_of_gdc_visit" value="{{ gdc_data.last_date_of_gdc_visit }}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="remark"><b>Remark:</b></label>
+                <input type="text" id="remark" name="remark" value="{{ gdc_data.remark }}">
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col">
+                <label for="image_east"><b>Image East Uploaded By The Field Team:</b></label>
+                <input type="file" id="image" name="image_east" value="{{ gdc_data.image_east }}">
+            </div>
+            <div class="col">
+                <label for="image_west"><b>Image West Uploaded By The Field Team:</b></label>
+                <input type="file" id="image" name="image_west" value="{{ gdc_data.image_west }}">
+            </div>
+            <div class="col">
+                <label for="image_north"><b>Image North Uploaded By The Field Team:</b></label>
+                <input type="file" id="image" name="image_north" value="{{ gdc_data.image_north }}">
+            </div>
+            <div class="col">
+                <label for="image_south"><b>Image South Uploaded By The Field Team:</b></label>
+                <input type="file" id="image" name="image_south" value="{{ gdc_data.image_south }}">
+            </div>
+            <div class="col" style="margin-right: 379px;">
+                <label for="closeup_image"><b>CloseUp Image Uploaded By The Field Team:</b></label>
+                <input type="file" id="image" name="closeup_image" value="{{ gdc_data.closeup_image }}">
+            </div>
+        </div>
+        <button type="submit" style="background-color: blue;">Submit</button>
+    </form>
+</div>
+{% endblock body %}

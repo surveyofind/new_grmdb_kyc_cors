@@ -1,0 +1,381 @@
+{% extends 'base.html' %}
+
+{% block css %}
+{% endblock css %}
+
+
+
+{% block body %}
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">CORS Inventory Report</h2>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="card mb-4">
+                <div class="card-header">Basic Information</div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="departmentname">Department Name</label>
+                        <select id="departmentname" name="departmentname" class="form-select" onchange="handleOthersSelection()">
+                            <option value="">-- Select --</option>
+                            <option value="NGRI">NGRI</option>
+                            <option value="NRSC/ISRO">NRSC/ISRO</option>
+                            <option value="ISTRAC/ISRO">ISTRAC/ISRO</option>
+                            <option value="IMD">IMD</option>
+                            <option value="SAC/ISRO">SAC/ISRO</option>
+                            <option value="NHSRCL">NHSRCL</option>
+                            <option value="WIHG">WIHG</option>
+                            <option value="NCRTC">NCRTC</option>
+                            <option value="AP SSLR">AP SSLR</option>
+                            <option value="GSI">GSI</option>
+                            <option value="IIRS/ISRO">IIRS/ISRO</option>
+                            <option value="NCGI ITK">NCGI ITK</option>
+                            <option value="NCS">NCS</option>
+                            <option value="Other">OTHER</option>
+                        </select>
+                    </div>
+                    <div id="any_departmentname" style="display: none; margin-top: -31px;">
+                        <label for="any_departmentname"></label>
+                        <input type="text" id="any_departmentname" name="any_departmentname" class="form-control">
+                    </div>
+                    <div class="form-row mt-4">
+                        <div class="form-group col-md-6">
+                            <label for="latitude">Latitude (DD.DDDD)</label>
+                            <input type="text" id="latitude" name="latitude" class="form-control">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="longitude">Longitude (DD.DDDD)</label>
+                            <input type="text" id="longitude" name="longitude" class="form-control">
+                        </div>
+                    </div>
+                    {% if error %}
+                    <div style="color: red;">{{ error }}</div>
+                    {% endif %}
+                    <div class="form-group">
+                        <label for="premise_address">Premise Address</label>
+                        <input type="text" id="premise_address" name="premise_address" class="form-control">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="city">City</label>
+                            <input type="text" id="city" name="city" class="form-control">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="district">District</label>
+                            <input type="text" id="district" name="district" class="form-control">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="state">State</label>
+                            <input type="text" id="state" name="state" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Monument Details Section -->
+            <div class="card mb-4">
+                <div class="card-header">Monument Details</div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="monument_type">Monument Type</label>
+                        <select id="monument_type" name="monument_type" class="form-select" onchange="handleOtherSelection()">
+                            <option value="">-- Select --</option>
+                            <option value="Pillar">Pillar</option>
+                            <option value="Tower">Tower</option>
+                            <option value="Pedestal">Pedestal</option>
+                            <option value="Raised Platform">Raised Platform</option>
+                            <option value="Roof Top">Roof Top</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    
+                        <!-- Hidden input field for "Other" -->
+                        <div id="other_monument_container" style="display: none; margin-top: 10px;">
+                            <label for="other_monument_type">Specify Other Monument Type:</label>
+                            <input type="text" id="other_monument_type" name="other_monument_type" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="monument_stability">Monument Stability</label>
+                        <select id="monument_stability" name="monument_stability" class="form-select">
+                            <option value="">-- Select --</option>
+                            <option value="Stable">Stable</option>
+                            <option value="Non Stable">Non Stable</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GNSS Equipment Section -->
+            <div class="card mb-4">
+                <div class="card-header">GNSS Equipment</div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="gnss_receiver_make_and_model">GNSS Receiver Make and Model</label>
+                        <input type="text" id="gnss_receiver_make_and_model" name="gnss_receiver_make_and_model" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="gnss_antenna_make_and_model">GNSS Antenna Make and Model</label>
+                        <input type="text" id="gnss_antenna_make_and_model" name="gnss_antenna_make_and_model" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="obstructions_to_antenna">Obstructions to Antenna</label>
+                        <textarea id="obstructions_to_antenna" name="obstructions_to_antenna" class="form-control" rows="3"></textarea>
+                    </div>
+                 
+                    <div class="form-group">
+                        <label for="probable_multipath_and_electro_megnetic_interference">Electro Magnetic Interference</label>
+                        <select id="probable_multipath_and_electro_megnetic_interference" name="probable_multipath_and_electro_megnetic_interference" class="form-select">
+                            <option value="">-- Select --</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" id="additional_info_div" style="display: none;">
+                        <label for="additional_info">Select</label>
+                        <select id="additional_info" name="additional_info" class="form-select">
+                            <option value="Radio">Radio</option>
+                            <option value="Television">Television</option>
+                            <option value="Cellular Phone Transmitters">Cellular Phone Transmitters</option>
+                            <option value="Jammers">Jammers</option>
+                            <option value="Microwave Data Links">Microwave Data Links</option>
+                            <option value="High Voltage Power Lines">High Voltage Power Lines</option>
+                            <option value="Power Line Transformers">Power Line Transformers</option>
+                            <option value="Electric Grid">Electric Grid</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="probablemultipath">Probable Multipath</label>
+                        <select id="probablemultipath" name="probablemultipath" class="form-select">
+                            <option value="">-- Select --</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="probablemultipath_additional_info" style="display: none;">
+                        <label for="probablemultipath_additional_info">Select</label>
+                        <select id="probablemultipath_additional_info" name="probablemultipath_additional_info" class="form-select">
+                            <option value="Galvanized Tin shed">Galvanized Tin shed</option>
+                            <option value="Waterbody">Water body</option>
+                            <option value="Glazed roof/walls">Glazed roof/walls</option>
+                            <option value="Glasswindows">Glass windows</option>
+                        </select>
+                    </div>
+                    <div>
+                </div>
+            </div>
+
+            <!-- Contact Information Section -->
+          
+
+            <!-- Additional Information Section -->
+            <div class="card mb-4">
+                <div class="card-header">Additional Information</div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="power">Power Option:</label>
+                        <select id="power" name="power" class="form-select" onchange="handlePowerChange()">
+                            <option value="">-- Select --</option>
+                            <!-- <option value="Availability of Connection from AC Grid">Availability of Connection from AC Grid</option> -->
+                            <option value="Connection From AC Grid">Connection From AC Grid</option>
+                            <option value="Solar Panels">Solar Panels</option>
+                            <option value="UPS and Battery">UPS and Battery</option>
+                        </select>
+                        <div id="dynamicFields" style="margin-top: 20px;"></div>
+                    </div>
+                  
+                    <div class="form-group">
+                        <label for="data_transmission">Data Transmission</label>
+                        <select id="data_transmission" name="data_transmission" class="form-select">
+                            <option value="">-- Select --</option>
+                            <option value="Ofline">Offline</option>
+                            <option value="Online But Periodic">Online but Periodic</option>
+                            <option value="Real Time">Real Time</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="online_transmission">Online Transmission</label>
+                        <select id="online_transmission" name="online_transmission" class="form-select">
+                            <option value="">-- Select --</option>
+                            <option value="Via Broadband">Via Broadband</option>
+                            <option value="GSM or 4G Connection">GSM or 4G Connection</option>
+                            <option value="Via Satellite Telemetry">Via Satellite Telemetry</option>
+                            
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="availability_of_gsm_4g_connection">Availability of GSM 4G Connection</label>
+                        <select id="availability_of_gsm_4g_connection" name="availability_of_gsm_4g_connection" class="form-select">
+                            <option value="">-- Select --</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="availability_of_broadband_connection">Availability of Broadband Connection</label>
+                        <select id="availability_of_broadband_connection" name="availability_of_broadband_connection" class="form-select">
+                            <option value="">-- Select --</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="availability_of_electric_surge_or_lightening_conductors">Availability of Electric Surge or Lightning Conductors</label>
+                        <select id="availability_of_electric_surge_or_lightening_conductors" name="availability_of_electric_surge_or_lightening_conductors" class="form-select">
+                            <option value="">-- Select --</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="access_control">Access Control</label>
+                        <select id="access_control" name="access_control" class="form-select">
+                            <option value="">-- Select --</option>
+                            <option value="Through Fence">Through Fence</option>
+                            <option value="Walled Compound">Walled Compound</option>
+                            <option value="Secured Roof Access">Secured Roof Access</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="operation_and_maintenance">Operation and Maintenance</label>
+                        <select id="operation_and_maintenance" name="operation_and_maintenance" class="form-select">
+                            <option value="">-- Select --</option>
+                            <option value="Complete Operation and Maintenance by the Department">Complete Operation and Maintenance by the Department</option>
+                            <option value="Operation by the Department and Maintenance is under Contract">Operation by the Department and Maintenance is under Contract</option>
+                            <option value="Complete Operation and Maintenance are under Contract">Complete Operation and Maintenance are under Contract</option>
+                        </select>
+                    </div>
+                    
+                </div>
+            </div>
+               <!-- Images Section -->
+               <div class="card mb-4">
+                <div class="card-header">Images</div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="image_east">Image East</label>
+                        <input type="file" id="image_east" name="image_east" class="form-control-file">
+                    </div>
+                    <div class="form-group">
+                        <label for="image_west">Image West</label>
+                        <input type="file" id="image_west" name="image_west" class="form-control-file">
+                    </div>
+                    <div class="form-group">
+                        <label for="image_north">Image North</label>
+                        <input type="file" id="image_north" name="image_north" class="form-control-file">
+                    </div>
+                    <div class="form-group">
+                        <label for="image_south">Image South</label>
+                        <input type="file" id="image_south" name="image_south" class="form-control-file">
+                    </div>
+                    <div class="form-group">
+                        <label for="pdf_form">Upload Pdf</label>
+                        <input type="file" id="pdf_form" name="pdf_form" class="form-control-file">
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">Contact Details</div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="persion_name">Name</label>
+                        <input type="text" id="persion_name" name="persion_name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="persion_contact_no">Contact No</label>
+                        <input type="text" id="persion_contact_no" name="persion_contact_no" class="form-control">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
+
+<script>
+    function handleOtherSelection() {
+        const monumentSelect = document.getElementById("monument_type");
+        const otherContainer = document.getElementById("other_monument_container");
+
+        if (monumentSelect.value === "Other") {
+            otherContainer.style.display = "block";
+        } else {
+            otherContainer.style.display = "none";
+            document.getElementById("other_monument_type").value = ""; // Clear the input field
+        }
+    }
+</script>
+
+<script>
+    function handlePowerChange() {
+        const powerSelect = document.getElementById('power');
+        const dynamicFields = document.getElementById('dynamicFields');
+        dynamicFields.innerHTML = ''; // Clear any previously shown dropdowns
+
+        const selectedValue = powerSelect.value;
+
+        if (selectedValue === 'Connection From AC Grid') {
+            // Add three dropdowns for Connection From Ac Grid
+            dynamicFields.innerHTML = `
+                <label for="gridType">Select:</label>
+                <select id="gridType" name="power" class="form-select">
+                    <option value="Not Available">Not Available</option>
+                    <option value="Continuous">Continuous</option>
+                    <option value="During Working Hours">During Working Hours</option>
+                </select> `;
+        } else if (
+            selectedValue === 'Availability of Connection from AC Grid' || 
+            selectedValue === 'Solar Panels' || 
+            selectedValue === 'UPS and Battery'
+        ) {
+            // Add two dropdowns for the other options
+            dynamicFields.innerHTML = `
+                <label for="optionType">Select:</label>
+                <select id="optionType" name="power" class="form-select">
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>`;
+        }
+    }
+</script> 
+<script>
+    document.getElementById('probable_multipath_and_electro_megnetic_interference').addEventListener('change', function() {
+        var selectedValue = this.value;
+        var additionalInfoDiv = document.getElementById('additional_info_div');
+        
+        if (selectedValue === 'Yes') {
+            additionalInfoDiv.style.display = 'block'; // Show the second dropdown
+        } else {
+            additionalInfoDiv.style.display = 'none'; // Hide the second dropdown
+        }
+    });
+</script>
+<script>
+    document.getElementById('probablemultipath').addEventListener('change', function() {
+        var selectedValue = this.value;
+        var additionalInfoDiv = document.getElementById('probablemultipath_additional_info');
+        
+        if (selectedValue === 'Yes') {
+            additionalInfoDiv.style.display = 'block'; // Show the second dropdown
+        } else {
+            additionalInfoDiv.style.display = 'none'; // Hide the second dropdown
+        }
+    });
+</script>
+<script>
+    function handleOthersSelection() {
+        const monumentSelect = document.getElementById("departmentname");
+        const otherContainer = document.getElementById("any_departmentname");
+
+        if (monumentSelect.value === "Other") {
+            otherContainer.style.display = "block";
+        } else {
+            otherContainer.style.display = "none";
+            document.getElementById("any_departmentname").value = ""; // Clear the input field
+        }
+    }
+</script>
+
+{% endblock body %}

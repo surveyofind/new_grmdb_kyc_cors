@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block css %}
+<style>
+  
+    button[type="submit"] {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+</style>
+{% endblock css %}
+
+
+
+{% block body %}
+<div class="container">
+    
+    <h1>CORS Processing and Monitoring Centre</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            <label for="corsid">Cors id:</label>
+            <input type="text" id="corsid" name="corsid" value="{{ controlcentre.corsid }}" disabled>
+        </div>
+        <div>
+            <label for="state">State Name:</label>
+            <input type="text" id="state" name="state" value="{{ controlcentre.state }}" disabled>
+        </div>
+        <div>
+            <label for="site_name">Site Name:</label>
+            <input type="text" id="site_name" name="site_name" value="{{ controlcentre.site_name }}" disabled>
+            <input type="hidden" id="site_name_hidden" name="site_name_hidden" value="{{ controlcentre.site_name }}">
+        </div>
+        <div>
+            <label for="site_code">Site Code:</label>
+            <input type="text" id="site_code" name="site_code" value="{{ controlcentre.site_code }}" disabled>
+            <input type="hidden" id="site_code_hidden" name="site_code_hidden" value="{{ controlcentre.site_code }}">
+        </div>
+        <div>
+            <label for="coordinates_of_sites_dms_lat">Coordinates of Sites DMS Lat:</label>
+            <input type="text" id="coordinates_of_sites_dms_lat" name="coordinates_of_sites_dms_lat" value="{{ controlcentre.coordinates_of_sites_dms_lat }}">
+        </div>
+        <div>
+            <label for="coordinates_of_sites_dms_long">Coordinates of Sites DMS Long:</label>
+            <input type="text" id="coordinates_of_sites_dms_long" name="coordinates_of_sites_dms_long" value="{{ controlcentre.coordinates_of_sites_dms_long }}">
+        </div>
+        <div>
+            <label for="coordinates_of_sites_dms_elp_height">Coordinates of Sites DMS Elp Height:</label>
+            <input type="text" id="coordinates_of_sites_dms_elp_height" name="coordinates_of_sites_dms_elp_height" value="{{ controlcentre.coordinates_of_sites_dms_elp_height }}">
+        </div>
+       
+        <!-- <div>
+            <label for="datadate">Date and Time:</label>
+            <input type="datetime-local" id="datadate" name="datadate" value="{% if controlcentre.datadate %}{{ controlcentre.datadate|date:'Y-m-d\TH:i' }}{% endif %}">
+        </div> -->
+        <div class="select-wrapper">
+            <label for="vendor_username">Vendor Username:</label>
+            <select id="vendor_username" name="vendor_username">
+                <option value="{{ controlcentre.vendor_username}}">Select Vendor Username</option>
+                {% for i in username_vendor %}
+                <option value="{{i.username}}">{{i.username}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="select-wrapper mb-4">
+            <label for="gdc_username">GDC Username:</label>
+            <select id="gdc_username" name="gdc_username">
+                <option value="{{ controlcentre.gdc_username}}">Select GDC Username  </option>
+                {% for i in username_gdc %}
+                <option value="{{i.username}}">{{i.username}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <button type="submit">Save Changes</button>
+    </form>
+</div>
+{% endblock body %}

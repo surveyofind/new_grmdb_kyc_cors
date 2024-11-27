@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block css %}
+<style>
+    body {
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        background-color: #f4f7f6;
+        margin: 0;
+        padding: 0;
+    }
+
+   
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+        font-size: 2.5em;
+        font-weight: 300;
+    }
+
+    .scroll-container {
+        max-height: 736px; /* Adjust height as needed */
+        overflow-y: auto;
+        border-radius: 8px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 1em;
+        min-width: 400px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #3c1089;
+        color: #fff;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    .actions {
+        display: flex;
+        justify-content: center;
+    }
+
+    .actions button {
+        margin: 0 5px;
+        padding: 6px 12px;
+        color: #fff;
+        text-decoration: none;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        outline: none;
+    }
+
+    .actions button.enable {
+        background-color: #28a745;
+    }
+
+    .actions button.disable {
+        background-color: #dc3545;
+    }
+
+    .actions button:hover {
+        filter: brightness(90%);
+    }
+</style>
+{% endblock css %}
+
+{% block body %}
+<div class="container">
+   
+
+    <div class="scroll-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Mobile No</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.mobileno }}</td>
+                    <td>{{ user.is_approved|yesno:"Enabled,Disabled" }}</td>
+                    <td class="actions">
+                        <form method="POST" style="display: inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="user_id" value="{{ user.id }}">
+                            <button type="submit" class="{{ user.is_approved|yesno:'disable,enable' }}">
+                                {{ user.is_approved|yesno:"Disable,Enable" }}
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock body %}

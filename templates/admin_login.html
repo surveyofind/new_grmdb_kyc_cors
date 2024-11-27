@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORS Database Portal</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa; /* Set your desired background color */
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #007bff; /* Set your desired header background color */
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+
+        .logo {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .logo img {
+            max-width: 290px;
+            vertical-align: middle;
+        }
+
+        .login-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff; /* Set your desired button background color */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3; /* Adjust to your preferred hover color */
+        }
+
+        .signup-link {
+            text-align: center;
+        }
+
+        .signup-link a {
+            color: #007bff; /* Set your desired link color */
+        }
+
+        .signup-link a:hover {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>CORS DATABASE PORTAL ADMIN DASHBOARD</h1>
+    </div>
+    <div class="logo">
+        <img src="{% static 'img/logo.png' %}" alt="LOGO">
+    </div>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form action="" method="POST"> {% csrf_token %}
+           
+            <div class="form-group">
+                <select name="role" id="role" class="form-control" required>
+                    <option value="asggrfandgded">O/o ASG GRF & GDED</option>
+                    <option value="admin">Admin</option>
+                    <option value="OC_SGW">OC SGW</option>
+                </select>
+            </div>
+             <div class="form-group">
+                <label for="password">Password:</label>
+                <div class="password-input">
+                    <input type="password" name="password" id="password" class="form-control" required>
+                    <span class="toggle-password" onclick="togglePasswordVisibility()">&#x1F441;</span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+            <!-- <p class="signup-link"><b>Don't have an Account?</b> <a href="{% url 'signup' %}">Signup</a></p> -->
+        </form>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function togglePasswordVisibility() {
+        var passwordInput = document.getElementById("password");
+        var toggleButton = document.querySelector(".toggle-password");
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            toggleButton.innerHTML = "&#x1F440;"; // Change to 'Hide' icon
+        } else {
+            passwordInput.type = "password";
+            toggleButton.innerHTML = "&#x1F441;"; // Change to 'Show' icon
+        }
+    }
+    </script>
+
+</body>
+</html>

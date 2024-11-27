@@ -1,0 +1,157 @@
+{% extends 'base1.html' %}
+  
+{% block css %} 
+    <style>
+        /* Updated CSS styles */
+        h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+        }
+
+        label {
+            font-weight: bold;
+            font-size: 16px;
+            color: #555;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .btn {
+            
+            width: auto; /* Adjusted width */
+            
+            margin-top: 10px; /* Adjusted margin */
+            margin-left: auto; /* Aligned to the right */
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .image-container img {
+            width: 45%;
+            margin: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+{% endblock css %}  
+
+{% block body %}
+    <div class="container">
+        <h1>Know your CORS</h1>
+        
+        <form action="{% url 'plot_data' %}" method="post" id="corsForm" class="needs-validation" novalidate>
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-5 mb-3">
+                    <label for="state">Select State:</label>
+                    <select id="state" name="state" class="custom-select" required>
+                        <option value="">Choose...</option>
+                        {% for state in states %}
+                            <option value="{{ state.id }}" {% if selected_state == state.id %}selected{% endif %}>{{ state.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="invalid-feedback">Please select a state.</div>
+                </div>
+                <div class="col-md-5 mb-3">
+                    <label for="district">Select site_name:</label>
+                    <select id="district" name="site_name" class="custom-select" required>
+                        <option value="">Choose...</option>
+                    </select>
+                    <div class="invalid-feedback">Please select a site_name.</div>
+                </div>
+                <div class=" mb-3 d-flex align-items-end">
+                    <button class="btn btn-primary ml-auto" id="submitBtn" type="submit">Submit</button>
+                </div>
+            </div>
+        </form>
+        
+    </div>
+
+    <div class="container">
+        {% if data %}
+        <a href="{% url 'generate_pdf' %}" class="btn btn-primary" style="margin-left: 981px;margin-bottom: -62px;" id="exportBtn">Export</a>
+        {% endif %}
+        <div class="image-container">
+            {% for plot_data in data %}
+                <img src="{{ plot_data.image_Cycle_Slip_PLOT.url }}" alt="Cycle Slip Plot">
+                <img src="{{ plot_data.image_MP_PLOT.url }}" alt="MP Plot">
+                <img src="{{ plot_data.image_Percentage_Observation.url }}" alt="Percentage Observation">
+                <img src="{{ plot_data.image_TS_PLOT.url }}" alt="TS Plot">
+            {% endfor %}
+        </div>
+    </div>
+{% endblock  %}
+
+{% block js %}  
+    <script>
+        $(document).ready(function() {
+            $("#state").change(function() {
+                var stateId = $(this).val();
+                if (stateId) {
+                    $.ajax({
+                        url: "{% url 'load_districts' %}",
+                        data: {
+                            'state_id': stateId
+                        },
+                        success: function(data) {
+                            $("#district").html('<option value="">Choose...</option>');
+                            $.each(data, function(key, value) {
+                                $("#district").append('<option value="' + value.site_name + '">' + value.site_name + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $("#district").html('<option value="">Choose...</option>');
+                }
+            });
+
+            // Form submission
+            $("#submitBtn").click(function(e) {
+                e.preventDefault();
+                var state = $("#state").val();
+                var district = $("#district").val();
+                if (state && district) {
+                    $("#corsForm").submit();
+                } else {
+                    alert("Please select both state and site_name.");
+                }
+            });
+        });
+    </script>
+{% endblock js %}

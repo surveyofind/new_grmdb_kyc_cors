@@ -1,0 +1,171 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>GROUND REFRENCE MARK DATABASE PORTAL</title>
+    <link href="/favicon.ico" type="image/x-icon" rel="icon"/><link href="/favicon.ico" type="image/x-icon" rel="shortcut icon"/>    
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/animate.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/font-awesome.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/themify-icons.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/flaticon.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/layers.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/settings.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/prettyPhoto.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/shortcodes.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/main.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/responsive.css' %}"/>
+	<link rel="stylesheet" href="{% static 'css/notfound.css' %}"/>
+    <script type="text/javascript" src="{% static 'js/textsizer.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-FT4YTPJTYK"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-FT4YTPJTYK');
+	</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+  
+    {% block css %}  {% endblock css %}
+</head>
+
+<body>
+<!-- <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+           
+            
+            <a class="navbar-brand" href="">
+                <img src="{% static 'img/logo.png' %}" alt="Your Logo">
+            </a>
+           
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header> -->
+<div class="page">
+    <header id="masthead" class="header ttm-header-style-infostack">
+      <div class="ttm-topbar-wrapper ttm-bgcolor-darkgrey ttm-textcolor-white clearfix">
+            <div class="container">
+                <div class="ttm-topbar-content">
+                    <ul class="top-contact text-left ttm-highlight-left">
+                        <li><a href="/pages/screen-reader-access">Screen Reader Access</a> | <a href="#maincontent">Skip to main content</a> | <a href="#mainavigation">Skip to navigation</a> | Text Size <a href="javascript:ts('p',1)">+</a> <a href="javascript:ts('p',-2)">A</a> <a href="javascript:ts('p',-1)">-</a> | <a class="home-link" href="#" rel="home"><a href="hindi">Hindi</a> | <a href="/">English</a></li>
+                    </ul>
+                    <div class="topbar-right text-right">
+                        <form action="" method="post">{% csrf_token %}
+                        <ul class="top-contact">
+                            <li> <input type="text" name="searchdata" placeholder="Search data " style="width: 248px;height: 40px;">
+                       <input type="submit" value="Search" class="ttm-btn ttm-btn-size-md ttm-btn-shape-square ttm-btn-bgcolor-darkgrey " style="background-color: #226fd0;border-radius: 11px;">
+                        </li>
+                        </ul>
+                    </form>
+                    </div> 
+                    
+            </div>
+        </div>
+        <!-- ttm-topbar-wrapper end -->
+        <!-- ttm-header-wrap -->
+        <div class="ttm-header-wrap">
+            <div class="container" style="max-width: 1344px;">
+                <div class="ttm-header-top-wrapper clearfix">
+                    <!-- site-branding -->
+                    <div class="site-branding">
+                        <a class="home-link" href="/" rel="home">
+                            <img id="logo-img" class="img-center" src="{% static 'img/logo.png' %}" alt="logo-img">
+                        </a>
+                    </div>
+                    
+                    <div class="site-branding">
+                        <a class="home-link" href="/" rel="home">
+                            <img id="logo-img" class="img-center soi_logo_img" src="{% static 'img/slogan.png' %}" alt="logo-img">
+                        </a>
+                    </div> 
+                    <!-- site-branding end -->
+                    <!-- ttm-top-info-con-->
+                    <div class="ttm-top-info-con clearfix">
+                        
+                        <div class="site-branding">
+                        <a class="home-link" href="/" rel="home">
+                            <img id="logo-img" class="img-center" src="{% static 'img/dst-logo.png' %}" alt="logo-img">
+                        </a>
+                    </div>
+                    <!--div class="site-branding">
+                        <a class="home-link" href="/" rel="home">
+                            <img id="logo-img" class="img-center" src="/images/goi-logo.png" alt="logo-img">
+                        </a>
+                    </div-->
+                    </div>
+                    <!-- ttm-top-info-con end -->
+                </div>
+                <!-- ttm-stickable-header-w -->
+                <div id="ttm-stickable-header-w" class="ttm-stickable-header-w clearfix">
+                    <div id="site-header-menu" class="site-header-menu">
+                            <div class="site-header-menu-inner ttm-stickable-header">
+                                <div class="container">
+                                <!--site-navigation -->
+                                <div id="site-navigation" class="site-navigation">
+                                    <div class="ttm-rt-contact">
+                                        <!-- header-icins -->
+                                        <!-- header-icons end -->
+                                    </div>
+                                    <div class="ttm-menu-toggle">
+                                        <input type="checkbox" id="menu-toggle-form" />
+                                        <label for="menu-toggle-form" class="ttm-menu-toggle-block">
+                                            <span class="toggle-block toggle-blocks-1"></span>
+                                            <span class="toggle-block toggle-blocks-2"></span>
+                                            <span class="toggle-block toggle-blocks-3"></span>
+                                        </label>
+                                    </div>
+                                    <a name="mainavigation"></a>
+                                    <nav id="menu" class="menu">
+                                        <ul class="dropdown">
+                                            <li class="about-soi-5" id="about-soi-5"><a href="{% url 'ic_datacenter' %}" class="link-about-soi-5" id="link-about-soi-5" target="_self">Home</a></li>
+                                            <li class="about-soi-5" id="about-soi-5"><a href="{% url 'ic_data_log' %}" class="link-about-soi-5" id="link-about-soi-5" target="_self">GTS Logs</a></li>
+                                            <li class="about-soi-5" id="about-soi-5"><a href="{% url 'logout_view' %}" class="link-about-soi-5" id="link-about-soi-5" target="_self">Logout</a></li>
+                                       
+
+                                        <ul> 
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--ttm-header-wrap end -->
+    </header>   
+{% block body %}
+{% endblock body %}
+
+<!-- Bootstrap JS and dependencies -->
+{% block js %}  {% endblock js %}
+
+</body>
+
+</html>
